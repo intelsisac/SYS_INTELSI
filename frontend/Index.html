@@ -11,7 +11,7 @@
 
 </body>
 
-<components>
+<components style="display: none;">
     <!--IMPORTACIONES-->
 
     <!--CONSTANTES-->
@@ -19,7 +19,14 @@
 
     <!--RUTAS-->
     <?!=include('frontend/routes/Routes') ?>
+
+
     <!--VISTAS-->
+    <?!= include('frontend/components/Header')?>
+    <?!= include('frontend/views/Inicio')?>
+    <?!= include('frontend/views/formularios/FAreaTrabajo') ?>
+
+    <!--COMPONENTE RAIZ-->
     <?!= include('frontend/App') ?>
     
 </components>

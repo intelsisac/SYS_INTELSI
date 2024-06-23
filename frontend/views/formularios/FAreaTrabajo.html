@@ -1,0 +1,34 @@
+//<script type="text/jsx">
+    function FAreaTrabajo(){
+
+        const guardarFomulario =(datosFormulario) =>{
+            console.log(datosFormulario)
+        }
+
+        return (
+            <div className="px-40">
+                <br></br>
+               <h1 className="text-center font-bold text-xl">AREA DE TRABAJO</h1>
+               <Form 
+                    onFinish={guardarFomulario}
+                    layout="vertical">
+                    <Item name="nombreAreaTrabajo" 
+                        label="Nombre Area Trabajo"
+                        rules={[
+                            {required: true, message: "El campo nombre es obligatorio"}
+                        ]}>
+                            
+                        <Input/>
+                    </Item>
+
+                    <Item 
+                    className="text-center">
+                    <button htmlType="submit">Guardar</button>
+                    </Item>
+               </Form>
+            </div>
+
+        )
+    }
+   
+//</script>

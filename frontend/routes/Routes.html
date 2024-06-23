@@ -5,9 +5,12 @@
     
       return (
         <Router>
-            <h2 className="text-blue-500 font-bold text-2xl">este es el ROUTE</h2>
+            <h2 className="text-blue-500 font-bold text-2xl p-1">INTELSI SAC</h2>
+            <Header/>
+            <Redirect to="/"/>
             <switch>
-
+                <Route exact path="/"  component={Inicio}/>
+                <Route exact path="/formularioAreaTrabajo" component={FAreaTrabajo}/>
             </switch>
         </Router>
       )
