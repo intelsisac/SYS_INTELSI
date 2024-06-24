@@ -1,34 +1,63 @@
-//<script type="text/jsx">
-    function FAreaTrabajo(){
+// <script type="text/jsx">
+function FAreaTrabajo() {
 
-        const guardarFomulario =(datosFormulario) =>{
-            console.log(datosFormulario)
-        }
+    const [form] = Form.useForm();
 
-        return (
-            <div className="px-40">
-                <br></br>
-               <h1 className="text-center font-bold text-xl">AREA DE TRABAJO</h1>
-               <Form 
-                    onFinish={guardarFomulario}
-                    layout="vertical">
-                    <Item name="nombreAreaTrabajo" 
-                        label="Nombre Area Trabajo"
-                        rules={[
-                            {required: true, message: "El campo nombre es obligatorio"}
-                        ]}>
-                            
-                        <Input/>
-                    </Item>
+    const guardarFormulario = (datosFormulario) => {
+        console.log(datosFormulario);
 
-                    <Item 
-                    className="text-center">
-                    <button htmlType="submit">Guardar</button>
-                    </Item>
-               </Form>
-            </div>
-
-        )
+        // Llamar a la función en el servidor y manejar la respuesta
+        google.script.run
+            .withSuccessHandler(respuestaExitosa)
+            .withFailureHandler(errorHandler)
+            .createAreaTrabajo(datosFormulario.nombreAreaTrabajo);
     }
-   
-//</script>
+
+    // Función para manejar la respuesta exitosa
+    function respuestaExitosa(resp) {
+        console.log('Respuesta exitosa:', resp);
+        form.resetFields();
+
+        Swal.fire({
+            title: '¡Excelente!',
+            text: '¡Área de trabajo creada exitosamente!',
+            icon: 'success',
+            confirmButtonText: 'Cerrar'
+        });
+    }
+
+    // Función para manejar errores
+    function errorHandler(error) {
+        console.error('Error:', error);
+        // Mostrar mensaje de error en la interfaz de usuario
+        message.success('Hubo un error al crear el área de trabajo. Por favor, intenta de nuevo más tarde.');
+        // Aquí puedes manejar el error y actualizar la interfaz de usuario según sea necesario
+    }
+
+    return (
+        <div className="px-40">
+            <br></br>
+            <h1 className="text-center font-bold text-xl">AREA DE TRABAJO</h1>
+            <Form
+                form={form}
+                onFinish={guardarFormulario}
+                layout="vertical">
+                <Form.Item
+                    name="nombreAreaTrabajo"
+                    label="Nombre Area Trabajo"
+                    rules={[
+                        { required: true, message: "El campo nombre es obligatorio" }
+                    ]}>
+
+                    <Input />
+                </Form.Item>
+
+                <Form.Item
+                    className="text-center">
+                    <Button type="primary" htmlType="submit">Guardar</Button>
+                </Form.Item>
+            </Form>
+        </div>
+    )
+}
+// </script>

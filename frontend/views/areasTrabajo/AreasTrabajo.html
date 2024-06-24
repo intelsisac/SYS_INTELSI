@@ -1,0 +1,51 @@
+// <script type="text/jsx">
+
+function AreaasTrabajo() {
+    const [areasTrabajos, setAreasTrabajos] = useState([]);
+
+    useEffect(() => {
+        let isMounted = true; // Bandera para verificar si el componente está montado
+
+        const fetchAreasTrabajo = () => {
+            google.script.run.withSuccessHandler((res) => {
+                if (isMounted) {
+                    setAreasTrabajos(res); // Actualizar el estado solo si el componente está montado
+                }
+            }).readAreaTrabajo();
+        };
+
+        fetchAreasTrabajo(); // Llamar a la función al montar el componente
+
+        return () => {
+            isMounted = false; // Al desmontar el componente, establecer isMounted en false para evitar actualizaciones de estado
+        };
+    }, []);
+
+    const columns = [
+        {
+            title: 'ID',
+            dataIndex: 'idAreaTrabajo',
+            key: 'idAreaTrabajo',
+        },
+        {
+            title: 'Nombre Area Trabajo',
+            dataIndex: 'nombreAreaTrabajo',
+            key: 'nombreAreaTrabajo',
+        },
+    ];
+
+    return (
+        <div className="px-4">
+            <br />
+            <h1 className="text-center font-bold text-xl">ÁREAS DE TRABAJO</h1>
+            <Table className="border-soli to-red-400"
+                dataSource={areasTrabajos}
+                columns={columns}
+                pagination={false}
+                bordered
+                rowKey="idAreaTrabajo"
+            />
+        </div>
+    );
+}
+// </script>
